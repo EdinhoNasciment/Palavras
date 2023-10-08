@@ -2,6 +2,7 @@ package br.edu.ifsp.palavras;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,14 +13,16 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-
+    private boolean linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        linearLayout = false;
         recyclerView = findViewById(R.id.recyclerview_letras);
         recyclerView.setAdapter(new LetrasAdapter(this));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        alterarLayout();
     }
 
     @Override
@@ -41,6 +44,21 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    
+    private void alterarLayout(){
+        linearLayout = !linearLayout;
+        if(linearLayout){
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }else{
+            recyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        }
+    }
+
+    private void alterarIconeMenu(MenuItem itemMenu){
+        if(itemMenu != null){
+            itemMenu.setIcon(getDrawable(R.drawable.ic_grid));
+        }else{
+            itemMenu.setIcon(getDrawable(R.drawable.ic_lista));
+        }
+    }
 
 }

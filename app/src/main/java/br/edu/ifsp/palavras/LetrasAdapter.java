@@ -1,6 +1,7 @@
 package br.edu.ifsp.palavras;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class LetrasAdapter extends RecyclerView.Adapter<LetrasAdapter.ViewHolder
 
         holder.itemButton.setText(letras.get(position).toString());
 
+        holder.itemButton.setOnClickListener(v -> abrirDetalhes(position));
     }
 
     @Override
@@ -59,4 +61,12 @@ public class LetrasAdapter extends RecyclerView.Adapter<LetrasAdapter.ViewHolder
             itemButton = itemView.findViewById(R.id.btn_item);
         }
     }
+
+    private void abrirDetalhes(int position){
+        Intent intent = new Intent(context, DetalhesActivity.class);
+        intent.putExtra(Constants.LETRA_ID, letras.get(position).toString());
+    }
+
+
+
 }
